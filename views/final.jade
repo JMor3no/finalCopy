@@ -1,0 +1,34 @@
+extends layout
+
+block content
+    h1 Find Jobs
+    h2= title
+    form(method="POST", action="/final/search")
+        table(style='border: 2px solid black')
+            tr
+                td: h3 What job category are you looking for?
+                td: input(type='text' name="category" value=category)
+            tr
+                td: h3 What city are you looking for?
+                td: input(type='text' name="city" value=city)
+            tr
+                td
+                td: input(type="submit"  value="Find Jobs")
+
+      h3 Total Jobs Found: #{jobs.length}
+      table
+        thead
+            th  id
+            th  Company
+            th  Salary
+            th  title
+            th  city
+            th  category
+        each job in jobs
+            tr
+                td= job.id
+                td #{job.company}
+                td #{job.salary.formatMoney(0, "$ ")}
+                td #{job.title}
+                td #{job.city}
+                td #{job.category}
