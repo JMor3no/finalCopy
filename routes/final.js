@@ -36,6 +36,7 @@ router.post('/search', function (req, res) {
         let title = "Jobs";
         let category = req.body.category;
         let city = req.body.city;
+        average = avgSalaryReduce(outList.map(x => x.salary));
         average = avgSalary(outList);
     //  TODO 2 - (40 pts) List of things to do - look at TODOs 4 and 5. You will create functions that you can use here. Use them
     //      TODO A - IF the category and city fields are empty THEN list ALL jobs
@@ -43,12 +44,7 @@ router.post('/search', function (req, res) {
         title = "All Jobs";
     }
     //      TODO B - IF the category and city fields BOTH have data then THEN list all jobs for that city for that category
-    // if (category && city) {
-    //     outList = outList.forEach(jobs => jobs.category == category); 
-    //     title += " from " + category;
-    //     outList = outList.forEach(jobs => jobs.city == city);
-    //     title += " from " + city;
-    // }
+   
     //      TODO C - IF the category field has data THEN list all jobs in that category
     if (category) {
         outList = outList.filter(jobs => jobs.category == category); 
@@ -71,9 +67,18 @@ router.post('/search', function (req, res) {
 
 //  TODO 3 - (25pts) - Add a     route.get      to respond to a request from the browser (15 pts for the code)
 router.get("/job/:jobId", function (req, res) {
-    res.send(jobList[req.params.jobId]);
+    // res.send(jobList[req.params.jobId]);
+ let jobid = req.params.jobId;
+ if (jobid) {
+    let outList = jobList.filter(jobs => jobs.id == jobid); 
+        console.log(outList[0]);
+        res.render('job', {job : outList[0]});
+    }
+});
 
-}); 
+
+
+
 
 //                  The router path will be "/job/:jobId"
 //                  Your code will use the req.params.jobId field
@@ -85,7 +90,7 @@ router.get("/job/:jobId", function (req, res) {
 //          You need to write all of the lines of code 
 //              router.get..... opening and closing braces and all of the code in between
 // this will show the job.jade page you created with the job you found. Or code similar to this
- //res.render('/job', justTheOneJob);    
+     
 
 
 /*

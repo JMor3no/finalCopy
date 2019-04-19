@@ -1,0 +1,18 @@
+extends layout
+
+block content
+    table
+        thead
+            th  id
+            th  Company
+            th  Salary
+            th  title
+            th  city
+            th  category
+            tr
+                td= job.id
+                td #{job.company}
+                td #{job.salary.formatMoney(0, "$ ")}
+                td #{job.title}
+                td #{job.city}
+                td #{job.category}
