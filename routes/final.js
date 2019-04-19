@@ -36,8 +36,7 @@ router.post('/search', function (req, res) {
         let title = "Jobs";
         let category = req.body.category;
         let city = req.body.city;
-        average = avgSalaryReduce(outList.map(x => x.salary));
-        average = avgSalary(outList);
+        
     //  TODO 2 - (40 pts) List of things to do - look at TODOs 4 and 5. You will create functions that you can use here. Use them
     //      TODO A - IF the category and city fields are empty THEN list ALL jobs
     if (category == "" && city == "") {
@@ -57,8 +56,9 @@ router.post('/search', function (req, res) {
     }
 
     //  TODO EXTRA CREDIT (20 pts) - find the job with the highest salary
+    
 
-
+    average = getAverageSalary(outList.map(x=>x.salary));
     //  this will format the money amount nicely
     average = average.formatMoney(0, "$ ");
     res.render('final', {jobs: outList, average: average, title: title});
@@ -140,27 +140,22 @@ function getJobsByCity(outList, city) {
  *          return:         the average salary of all jobs in that list
  *
  */
-function getAverageSalary(jobs) {
-        // TODO 6 - (10 pts) Calculate the average salary for a given list of jobs
+function getAverageSalary(a) {
+    // average = avgSalaryReduce(outList.map(x => x.salary));
+    let sum = 0;
+    a.forEach(function(s) {
+      sum += s;
+    });
+    return sum / a.length;
+        
 }
-
+// TODO 6 - (10 pts) Calculate the average salary for a given list of jobs
 
 function createJob(fields) {
     return new Job(fields);
 }
 
-function avgSalary(a) {
-    let sum = 0;
-    a.forEach(function(jobs) {
-      sum += jobs.salary;
-    });
-    return sum / a.length;
-  }
-  
-  function avgSalaryReduce(a) {
-    let sum = a.reduce((acc, s) => acc + s);
-    return sum / a.length;
-  }
+
  
 
 
