@@ -47,12 +47,12 @@ router.post('/search', function (req, res) {
    
     //      TODO C - IF the category field has data THEN list all jobs in that category
     if (category) {
-        outList = outList.filter(jobs => jobs.category == category); 
+        outList = getJobsByCategory(outList, category);
         title += " from " + category;
     }
     //      TODO D - IF the city field has data THEN list all jobs in that city
     if (city) {
-        outList = outList.filter(jobs => jobs.city == city);
+        outList = getJobsByCity(outList, city);
         title += " from " + city;
     }
 
@@ -104,11 +104,15 @@ router.get("/job/:jobId", function (req, res) {
  *              directorList = get JobsByCategory(jobs, 'Director')
  */
 //  TODO 4 - (15pts) -  Create the getJobsByCategory function
-function getJobsByCategory(put, your, parameters, here) {
-        //  TODO filter the list of jobs and find the jobs that match the job title
-        //  you will return that array back to your calling function
+function getJobsByCategory(outList, category) {
+    outList = outList.filter(jobs => jobs.category == category); 
+    return outList;
 }
 
+       
+
+ //  TODO filter the list of jobs and find the jobs that match the job title
+        //  you will return that array back to your calling function
 
 /*
  *      getJobsByCity - create an array with all jobs that are in the desired city
@@ -121,10 +125,13 @@ function getJobsByCategory(put, your, parameters, here) {
  *              cityList = get getJobsByCity(jobs, req.params.city)
  */
 //  TODO 5 - (15pts) -  Create the getJobsByCity function
-function getJobsByCity(put, your, parameters, here) {
-        //  filter the list of jobs and find the jobs that match the city
-        //  when you are done return that array back to your calling function
+function getJobsByCity(outList, city) {
+    outList = outList.filter(jobs => jobs.city == city);
+    return outList;
+        
 }
+//  filter the list of jobs and find the jobs that match the city
+        //  when you are done return that array back to your calling function
 
 
 /*
